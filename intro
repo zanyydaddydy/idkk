@@ -1,0 +1,75 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
+
+--Properties:
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageButton.BackgroundTransparency = 1.000
+ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.379131854, 0, 0.407960206, 0)
+ImageButton.Size = UDim2.new(0, 290, 0, 290)
+ImageButton.Image = "http://www.roblox.com/asset/?id=80757888078002"
+
+UICorner.CornerRadius = UDim.new(0.300000012, 0)
+UICorner.Parent = ImageButton
+
+-- Scripts:
+
+local function YUESWRZ_fake_script() -- ImageButton.LocalScript 
+	local script = Instance.new('LocalScript', ImageButton)
+
+	local imageButton = script.Parent
+	local tweenService = game:GetService("TweenService")
+	local sound = Instance.new("Sound")  -- Create a new Sound instance
+	sound.SoundId = "rbxassetid://7148585764"  -- Set the sound ID
+	sound.Parent = imageButton  -- Parent it to the ImageButton
+	
+	-- Starting position (off-screen bottom)
+	imageButton.AnchorPoint = Vector2.new(0.5, 0.5)
+	imageButton.Position = UDim2.new(0.5, 0, 1.5, 0) -- below screen
+	imageButton.ImageTransparency = 0
+	
+	-- Tween to center of the screen
+	local tweenToCenter = tweenService:Create(imageButton, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 0.5, 0)
+	})
+	tweenToCenter:Play()
+	tweenToCenter.Completed:Wait()
+	
+	-- Wait 1 second
+	wait(0.5)
+	
+	-- Change to first image
+	imageButton.Image = "rbxassetid://76676835488879"
+	
+	-- Play the sound when changing the image
+	sound:Play()
+	
+	-- Wait 0.5 seconds
+	wait(0.25)
+	
+	-- Change back to original image
+	imageButton.Image = "rbxassetid://80757888078002"
+	
+	-- Wait 1 second
+	wait(0.5)
+	
+	-- Fade out
+	local fadeTween = tweenService:Create(imageButton, TweenInfo.new(1), {
+		ImageTransparency = 1
+	})
+	fadeTween:Play()
+	
+end
+coroutine.wrap(YUESWRZ_fake_script)()
